@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Brian J. Knaus" />
+
+<meta name="date" content="2016-02-22" />
+
+<title>VCF data</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<link href="data:text/css,body%20%7B%0A%20%20background%2Dcolor%3A%20%23fff%3B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20max%2Dwidth%3A%20700px%3B%0A%20%20overflow%3A%20visible%3B%0A%20%20padding%2Dleft%3A%202em%3B%0A%20%20padding%2Dright%3A%202em%3B%0A%20%20font%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0A%20%20font%2Dsize%3A%2014px%3B%0A%20%20line%2Dheight%3A%201%2E35%3B%0A%7D%0A%0A%23header%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0A%23TOC%20%7B%0A%20%20clear%3A%20both%3B%0A%20%20margin%3A%200%200%2010px%2010px%3B%0A%20%20padding%3A%204px%3B%0A%20%20width%3A%20400px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20border%2Dradius%3A%205px%3B%0A%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20font%2Dsize%3A%2013px%3B%0A%20%20line%2Dheight%3A%201%2E3%3B%0A%7D%0A%20%20%23TOC%20%2Etoctitle%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%20%20font%2Dsize%3A%2015px%3B%0A%20%20%20%20margin%2Dleft%3A%205px%3B%0A%20%20%7D%0A%0A%20%20%23TOC%20ul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2040px%3B%0A%20%20%20%20margin%2Dleft%3A%20%2D1%2E5em%3B%0A%20%20%20%20margin%2Dtop%3A%205px%3B%0A%20%20%20%20margin%2Dbottom%3A%205px%3B%0A%20%20%7D%0A%20%20%23TOC%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dleft%3A%20%2D2em%3B%0A%20%20%7D%0A%20%20%23TOC%20li%20%7B%0A%20%20%20%20line%2Dheight%3A%2016px%3B%0A%20%20%7D%0A%0Atable%20%7B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dcolor%3A%20%23DDDDDD%3B%0A%20%20border%2Dstyle%3A%20outset%3B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0A%20%20border%2Dwidth%3A%202px%3B%0A%20%20padding%3A%205px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%20%20line%2Dheight%3A%2018px%3B%0A%20%20padding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0A%20%20border%2Dleft%2Dstyle%3A%20none%3B%0A%20%20border%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Ap%20%7B%0A%20%20margin%3A%200%2E5em%200%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20padding%3A%200%2E25em%200%2E75em%3B%0A%7D%0A%0Ahr%20%7B%0A%20%20border%2Dstyle%3A%20solid%3B%0A%20%20border%3A%20none%3B%0A%20%20border%2Dtop%3A%201px%20solid%20%23777%3B%0A%20%20margin%3A%2028px%200%3B%0A%7D%0A%0Adl%20%7B%0A%20%20margin%2Dleft%3A%200%3B%0A%7D%0A%20%20dl%20dd%20%7B%0A%20%20%20%20margin%2Dbottom%3A%2013px%3B%0A%20%20%20%20margin%2Dleft%3A%2013px%3B%0A%20%20%7D%0A%20%20dl%20dt%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%7D%0A%0Aul%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%7D%0A%20%20ul%20li%20%7B%0A%20%20%20%20list%2Dstyle%3A%20circle%20outside%3B%0A%20%20%7D%0A%20%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dbottom%3A%200%3B%0A%20%20%7D%0A%0Apre%2C%20code%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20color%3A%20%23333%3B%0A%7D%0Apre%20%7B%0A%20%20white%2Dspace%3A%20pre%2Dwrap%3B%20%20%20%20%2F%2A%20Wrap%20long%20lines%20%2A%2F%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20margin%3A%205px%200px%2010px%200px%3B%0A%20%20padding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Acode%20%7B%0A%20%20font%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0A%20%20font%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0A%20%20padding%3A%202px%200px%3B%0A%7D%0A%0Adiv%2Efigure%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0A%20%20background%2Dcolor%3A%20%23FFFFFF%3B%0A%20%20padding%3A%202px%3B%0A%20%20border%3A%201px%20solid%20%23DDDDDD%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20margin%3A%200%205px%3B%0A%7D%0A%0Ah1%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%20%20font%2Dsize%3A%2035px%3B%0A%20%20line%2Dheight%3A%2040px%3B%0A%7D%0A%0Ah2%20%7B%0A%20%20border%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20padding%2Dbottom%3A%202px%3B%0A%20%20font%2Dsize%3A%20145%25%3B%0A%7D%0A%0Ah3%20%7B%0A%20%20border%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20font%2Dsize%3A%20120%25%3B%0A%7D%0A%0Ah4%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0A%20%20margin%2Dleft%3A%208px%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Ah5%2C%20h6%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23ccc%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Aa%20%7B%0A%20%20color%3A%20%230033dd%3B%0A%20%20text%2Ddecoration%3A%20none%3B%0A%7D%0A%20%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%236666ff%3B%20%7D%0A%20%20a%3Avisited%20%7B%0A%20%20%20%20color%3A%20%23800080%3B%20%7D%0A%20%20a%3Avisited%3Ahover%20%7B%0A%20%20%20%20color%3A%20%23BB00BB%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%0A%2F%2A%20Class%20described%20in%20https%3A%2F%2Fbenjeffrey%2Ecom%2Fposts%2Fpandoc%2Dsyntax%2Dhighlighting%2Dcss%0A%20%20%20Colours%20from%20https%3A%2F%2Fgist%2Egithub%2Ecom%2Frobsimmons%2F1172277%20%2A%2F%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Keyword%20%2A%2F%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%2F%2A%20DataType%20%2A%2F%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%2F%2A%20DecVal%20%28decimal%20values%29%20%2A%2F%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20BaseN%20%2A%2F%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Float%20%2A%2F%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Char%20%2A%2F%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20String%20%2A%2F%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%2F%2A%20Comment%20%2A%2F%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%2F%2A%20OtherToken%20%2A%2F%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20AlertToken%20%2A%2F%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Function%20calls%20%2A%2F%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%2F%2A%20ErrorTok%20%2A%2F%0A%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div id="header">
+<h1 class="title">VCF data</h1>
+<h4 class="author"><em>Brian J. Knaus</em></h4>
+<h4 class="date"><em>2016-02-22</em></h4>
+</div>
+
+
+<p>Most variant calling pipelines result in files containing variant information. The <a href="http://samtools.github.io/hts-specs/" title="VCF format at hts-specs">variant call format (vcf)</a> is an increasingly popular format for this data. The genotypes in these files are typically intended to be filtered as an attempt to remove false positives or other problematic variants. A first step in working with this data is to understand their contents.</p>
+<div id="three-sections" class="section level2">
+<h2>Three sections</h2>
+<p>A VCF file can be thought of as having three sections: a <strong>meta region</strong>, a <strong>fix region</strong> and a <strong>gt region</strong>. The meta region is at the top of the file. The information in the meta region defines the abbreviations used elsewhere in the file. It may also document software used to create the file as well as parameters used by this software. Below the meta region, the data are tabular. The first eight columns of this table contain information about each variant. This data may be common over all variants, such as its chromosomal position, or a summary over all samples, such as quality metrics. These data are fixed, or the same, over all samples. Beginning at column ten is a column for every sample. The values in these columns are information for each sample and each variant. The organization of each cell containing a genotype and associated information is specified in column nine. The location of these three regions within a file can be represented by the cartoon below.</p>
+<div class="figure" style="text-align: center">
+<img src="data:image/png;base64,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" alt="Cartoon representation of VCF file organization" />
+<p class="caption">
+Cartoon representation of VCF file organization
+</p>
+</div>
+<p>The VCF file definition is flexible. This means that there are slots for certain types of data, but any particular software which creates a VCF file does not necessarily use them all. Similarly, authors have the opportunity to include new forms of data, forms which may not have been foreseen by the authors of the VCF definition. The result is that all VCF files do not contain the same information.</p>
+<p>For this vignette, we’ll use the example data provided with vcfR.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vcfR)
+<span class="kw">data</span>(vcfR_example)</code></pre>
+</div>
+<div id="the-meta-region" class="section level2">
+<h2>The meta region</h2>
+<p>The meta region contains information about the file and its creation, as well as information to interpret abbreviations used elsewhere in the file. Each line of the meta region begins with a double pound sign (‘##’). The example which comes with vcfR is shown below. (Only the first 10 lines are shown for brevity.)</p>
+<pre><code>##  [1] &quot;##fileformat=VCFv4.1&quot;                                              
+##  [2] &quot;##source=\&quot;GATK haplotype Caller, phased with beagle4\&quot;&quot;           
+##  [3] &quot;##FILTER=&lt;ID=LowQual,Description=\&quot;Low quality\&quot;&gt;&quot;                 
+##  [4] &quot;##FORMAT=&lt;ID=AD,Number=.,Type=Integer,Description=\&quot;Allelic depths&quot;
+##  [5] &quot;for the ref and alt alleles in the order listed\&quot;&gt;&quot;                
+##  [6] &quot;##FORMAT=&lt;ID=DP,Number=1,Type=Integer,Description=\&quot;Approximate&quot;   
+##  [7] &quot;read depth (reads with MQ=255 or with bad mates are filtered)\&quot;&gt;&quot;  
+##  [8] &quot;##FORMAT=&lt;ID=GQ,Number=1,Type=Integer,Description=\&quot;Genotype&quot;      
+##  [9] &quot;Quality\&quot;&gt;&quot;                                                        
+## [10] &quot;##FORMAT=&lt;ID=GT,Number=1,Type=String,Description=\&quot;Genotype\&quot;&gt;&quot;</code></pre>
+<p>The first line contains the version of the VCF format used in the file. This line is required. The second line specifies the software which created the VCF file. This is not required, so not all VCF files include it. When they do, the file becomes self documenting. Note that the alignment software is not included here because it was used upstream of the VCF file’s creation (aligners typically create *.SAM or *.BAM format files). Because the file can only include information about the software that created it, the entire pipeline does not get documented. Some VCF files may contain a line for every chromosome (or supercontig or contig depending on your genome), so they may become rather long. Here, the remaining lines contain INFO and FORMAT specifications which define abbreviations used in the fix and gt portions of the file.</p>
+</div>
+<div id="the-fix-region" class="section level2">
+<h2>The fix region</h2>
+<p>The fix region contains information for each variant which is sometimes summarized over all samples. The first eight columns of the fixed region and are titled CHROM, POS, ID, REF, ALT, QUAL, FILTER and INFO. This is per variant information which is ‘fixed’, or the same, over all samples. The first two columns indicate the location of the variant by chromosome and position within that chromosome. Here, the ID field has not been used, so it consists of missing data (NA). The REF and ALT columns indicate the reference and alternate allelic states. When multiple alternate allelic states are present they are delimited with commas. The QUAL column attempts to summarize the quality of each variant over all samples. The FILTER field is not used here but could contain information on whether a variant has passed some form of quality assessment.</p>
+<pre><code>##      CHROM              POS   ID REF ALT QUAL     FILTER
+## [1,] &quot;Supercontig_1.50&quot; &quot;2&quot;   NA &quot;T&quot; &quot;A&quot; &quot;44.44&quot;  NA    
+## [2,] &quot;Supercontig_1.50&quot; &quot;246&quot; NA &quot;C&quot; &quot;G&quot; &quot;144.21&quot; NA    
+## [3,] &quot;Supercontig_1.50&quot; &quot;549&quot; NA &quot;A&quot; &quot;C&quot; &quot;68.49&quot;  NA    
+## [4,] &quot;Supercontig_1.50&quot; &quot;668&quot; NA &quot;G&quot; &quot;C&quot; &quot;108.07&quot; NA    
+## [5,] &quot;Supercontig_1.50&quot; &quot;765&quot; NA &quot;A&quot; &quot;C&quot; &quot;92.78&quot;  NA    
+## [6,] &quot;Supercontig_1.50&quot; &quot;780&quot; NA &quot;G&quot; &quot;T&quot; &quot;58.38&quot;  NA</code></pre>
+<p>The eigth column, titled INFO, is a semicolon delimited list of information. It can be rather long and cumbersome, which is why its not presented in its entirety here. Each abbreviation in the INFO column should be defined in the meta section. For example, line three from the meta region tells us that ‘DP’ is the raw read depth. We can validate this by querying the meta portion.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">strwrap</span>(<span class="kw">grep</span>(<span class="st">'DP'</span>, vcf@meta, <span class="dt">value =</span> <span class="ot">TRUE</span>))</code></pre>
+<pre><code>## [1] &quot;##FORMAT=&lt;ID=DP,Number=1,Type=Integer,Description=\&quot;Approximate&quot;   
+## [2] &quot;read depth (reads with MQ=255 or with bad mates are filtered)\&quot;&gt;&quot;  
+## [3] &quot;##INFO=&lt;ID=DP,Number=1,Type=Integer,Description=\&quot;Approximate read&quot;
+## [4] &quot;depth; some reads may have been filtered\&quot;&gt;&quot;</code></pre>
+<p>We see that ‘DP’ is defined both for the INFO column and for the gt portion of the file (FORMAT). Returning to the INFO column, we see that the value of DP equals 197 for this variant (note the caveats in the meta line). This tells us that this variant was sequenced 197 times over all our samples. A number of other parameters are also included in this column which be explored by querying their definition in the meta region. Here we just look at what is present for the first variant.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unlist</span>(<span class="kw">strsplit</span>(<span class="kw">as.character</span>(vcf@fix[<span class="dv">1</span>, <span class="dv">8</span>]), <span class="dt">split=</span><span class="st">&quot;;&quot;</span>))</code></pre>
+<pre><code>##  [1] &quot;AC=1&quot;                    &quot;AF=0.042&quot;               
+##  [3] &quot;AN=24&quot;                   &quot;BaseQRankSum=1.332&quot;     
+##  [5] &quot;ClippingRankSum=-0.097&quot;  &quot;DP=197&quot;                 
+##  [7] &quot;FS=2.536&quot;                &quot;InbreedingCoeff=-0.0879&quot;
+##  [9] &quot;MLEAC=1&quot;                 &quot;MLEAF=0.042&quot;            
+## [11] &quot;MQ=21.70&quot;                &quot;MQ0=0&quot;                  
+## [13] &quot;MQRankSum=0.148&quot;         &quot;QD=2.34&quot;                
+## [15] &quot;ReadPosRankSum=0.832&quot;    &quot;SOR=1.414&quot;</code></pre>
+</div>
+<div id="the-gt-region" class="section level2">
+<h2>The gt region</h2>
+<p>The gt (genotype) region contains information for each variant for each sample. The values for each variant and each sample are colon delimited. Multiple types of data for each genotype may be stored in this manner. The format of the data is specified by column nine, the FORMAT column. Here we see that we have information for GT, AD, DP, GQ and PL. The definition of these acronyms can be referenced by querying the the meta region, as demonstrated previously. Every variant does not necessarily have the same information (e.g., SNPs and indels may be handled differently), so the rows are best treated separately.</p>
+<pre><code>##      FORMAT           BL2009P4_us23              
+## [1,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:62,0:62:99:0,190,2835&quot;
+## [2,] &quot;GT:AD:DP:GQ:PL&quot; &quot;1|0:5,5:10:99:111,0,114&quot;  
+## [3,] &quot;GT:AD:DP:GQ:PL&quot; NA                         
+## [4,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:1,0:1:3:0,3,44&quot;       
+## [5,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:2,0:2:6:0,6,49&quot;       
+## [6,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:2,0:2:6:0,6,49&quot;       
+##      DDR7602                   IN2009T1_us22              
+## [1,] &quot;0|0:12,0:12:39:0,39,585&quot; &quot;0|0:37,0:37:99:0,114,1709&quot;
+## [2,] NA                        &quot;0|1:2,1:3:16:16,0,48&quot;     
+## [3,] NA                        &quot;0|0:2,0:2:6:0,6,51&quot;       
+## [4,] NA                        &quot;1|1:0,1:1:3:25,3,0&quot;       
+## [5,] &quot;0|0:1,0:1:3:0,3,34&quot;      &quot;0|0:1,0:1:3:0,3,31&quot;       
+## [6,] &quot;0|0:1,0:1:3:0,3,34&quot;      &quot;0|0:3,0:3:9:0,9,85&quot;       
+##      LBUS5                     NL07434             
+## [1,] &quot;0|0:12,0:12:39:0,39,585&quot; NA                  
+## [2,] NA                        NA                  
+## [3,] NA                        NA                  
+## [4,] NA                        &quot;0|0:1,0:1:3:0,3,28&quot;
+## [5,] &quot;0|0:1,0:1:3:0,3,34&quot;      &quot;0|0:1,0:1:3:0,3,26&quot;
+## [6,] &quot;0|0:1,0:1:3:0,3,34&quot;      NA                  
+##      P10127                    P10650                
+## [1,] &quot;0|0:8,0:8:24:0,24,360&quot;   &quot;0|0:1,0:1:3:0,3,45&quot;  
+## [2,] &quot;0|0:1,0:1:3:0,3,25&quot;      &quot;0|1:3,1:4:14:14,0,86&quot;
+## [3,] &quot;1|1:0,4:4:12:99,12,0&quot;    NA                    
+## [4,] &quot;0|0:2,0:2:6:0,6,54&quot;      &quot;0|0:1,0:1:3:0,3,35&quot;  
+## [5,] &quot;0|0:12,0:12:36:0,36,297&quot; &quot;0|0:2,0:2:6:0,6,49&quot;  
+## [6,] &quot;0|0:10,0:10:30:0,30,274&quot; &quot;0|0:2,0:2:6:0,6,49&quot;</code></pre>
+</div>
+<div id="vcfr" class="section level2">
+<h2>vcfR</h2>
+<p>Using the R package vcfR, we can read VCF format files into memory using the function <code>read.vcfR()</code>. Once in memory we can use the <code>head()</code> method to summarize the information in the three VCF regions.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(vcf)</code></pre>
+<pre><code>## [1] &quot;***** Object of class 'vcfR' *****&quot;
+## [1] &quot;***** Meta section *****&quot;
+## [1] &quot;##fileformat=VCFv4.1&quot;
+## [1] &quot;##source=\&quot;GATK haplotype Caller, phased with beagle4\&quot;&quot;
+## [1] &quot;##FILTER=&lt;ID=LowQual,Description=\&quot;Low quality\&quot;&gt;&quot;
+## [1] &quot;##FORMAT=&lt;ID=AD,Number=.,Type=Integer,Description=\&quot;Allelic depths fo [Truncated]&quot;
+## [1] &quot;##FORMAT=&lt;ID=DP,Number=1,Type=Integer,Description=\&quot;Approximate read  [Truncated]&quot;
+## [1] &quot;##FORMAT=&lt;ID=GQ,Number=1,Type=Integer,Description=\&quot;Genotype Quality\&quot;&gt;&quot;
+## [1] &quot;First 6 rows.&quot;
+## [1] 
+## [1] &quot;***** Fixed section *****&quot;
+##      CHROM              POS   ID REF ALT QUAL     FILTER
+## [1,] &quot;Supercontig_1.50&quot; &quot;2&quot;   NA &quot;T&quot; &quot;A&quot; &quot;44.44&quot;  NA    
+## [2,] &quot;Supercontig_1.50&quot; &quot;246&quot; NA &quot;C&quot; &quot;G&quot; &quot;144.21&quot; NA    
+## [3,] &quot;Supercontig_1.50&quot; &quot;549&quot; NA &quot;A&quot; &quot;C&quot; &quot;68.49&quot;  NA    
+## [4,] &quot;Supercontig_1.50&quot; &quot;668&quot; NA &quot;G&quot; &quot;C&quot; &quot;108.07&quot; NA    
+## [5,] &quot;Supercontig_1.50&quot; &quot;765&quot; NA &quot;A&quot; &quot;C&quot; &quot;92.78&quot;  NA    
+## [6,] &quot;Supercontig_1.50&quot; &quot;780&quot; NA &quot;G&quot; &quot;T&quot; &quot;58.38&quot;  NA    
+## [1] 
+## [1] &quot;***** Genotype section *****&quot;
+##      FORMAT           BL2009P4_us23              
+## [1,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:62,0:62:99:0,190,2835&quot;
+## [2,] &quot;GT:AD:DP:GQ:PL&quot; &quot;1|0:5,5:10:99:111,0,114&quot;  
+## [3,] &quot;GT:AD:DP:GQ:PL&quot; NA                         
+## [4,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:1,0:1:3:0,3,44&quot;       
+## [5,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:2,0:2:6:0,6,49&quot;       
+## [6,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:2,0:2:6:0,6,49&quot;       
+##      DDR7602                   IN2009T1_us22              
+## [1,] &quot;0|0:12,0:12:39:0,39,585&quot; &quot;0|0:37,0:37:99:0,114,1709&quot;
+## [2,] NA                        &quot;0|1:2,1:3:16:16,0,48&quot;     
+## [3,] NA                        &quot;0|0:2,0:2:6:0,6,51&quot;       
+## [4,] NA                        &quot;1|1:0,1:1:3:25,3,0&quot;       
+## [5,] &quot;0|0:1,0:1:3:0,3,34&quot;      &quot;0|0:1,0:1:3:0,3,31&quot;       
+## [6,] &quot;0|0:1,0:1:3:0,3,34&quot;      &quot;0|0:3,0:3:9:0,9,85&quot;       
+##      LBUS5                     NL07434             
+## [1,] &quot;0|0:12,0:12:39:0,39,585&quot; NA                  
+## [2,] NA                        NA                  
+## [3,] NA                        NA                  
+## [4,] NA                        &quot;0|0:1,0:1:3:0,3,28&quot;
+## [5,] &quot;0|0:1,0:1:3:0,3,34&quot;      &quot;0|0:1,0:1:3:0,3,26&quot;
+## [6,] &quot;0|0:1,0:1:3:0,3,34&quot;      NA                  
+## [1] &quot;First 6 columns only.&quot;
+## [1] 
+## [1] &quot;Unique GT formats:&quot;
+## [1] &quot;GT:AD:DP:GQ:PL&quot;
+## [1]</code></pre>
+<p>We now have a summary of our VCF file which we can use to help understand what forms of information are contained within it. This information can be further explored with plotting functions and used to filter the VCF file for high quality variants. These topics are discussed in other vignettes.</p>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
