@@ -32,18 +32,6 @@ plot(chrom)
 ## ----chromoqc1, fig.align='center', fig.height=7, fig.width=7------------
 chromoqc(chrom, dp.alpha=20)
 
-## ----masker proc.chromR, fig.align='center', fig.height=7, fig.width=7----
-chrom@var.info$mask <- TRUE
-chrom <- proc.chromR(chrom, verbose=FALSE)
-chromoqc(chrom, dp.alpha=20)
-chrom <- masker(chrom, min_QUAL = 1, min_DP = 300, max_DP = 700, min_MQ = 59.9,  max_MQ = 60.1)
-chrom <- proc.chromR(chrom, verbose=FALSE)
-
 ## ----chromoqc2, fig.align='center', fig.height=7, fig.width=7------------
 chromoqc(chrom, xlim=c(5e+05, 6e+05))
-
-## ----chromoqc3, fig.align='center', fig.height=7, fig.width=7------------
-record <- 130
-buffer=1e3
-chromoqc(chrom, xlim=c( gff[record,4]-buffer, gff[record,5]+buffer ))
 

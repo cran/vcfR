@@ -16,11 +16,11 @@ my_genclone <- poppr::as.genclone(my_genind)
 class(my_genclone)
 my_genclone
 
-## ----genlight, eval=FALSE------------------------------------------------
-#  vcf_file <- system.file("extdata", "pinf_sc50.vcf.gz", package = "pinfsc50")
-#  vcf <- read.vcfR(vcf_file, verbose = FALSE)
-#  x <- vcfR2genlight(vcf)
-#  x
+## ----genlight, eval=TRUE-------------------------------------------------
+vcf_file <- system.file("extdata", "pinf_sc50.vcf.gz", package = "pinfsc50")
+vcf <- read.vcfR(vcf_file, verbose = FALSE)
+x <- vcfR2genlight(vcf)
+x
 
 ## ----load vcf dna gff----------------------------------------------------
 # Find the files.

@@ -1,26 +1,44 @@
 
-## Manipulate and visualize variant call format (vcf) data
+## VcfR: a package to manipulate and visualize [VCF](https://github.com/samtools/hts-specs) data in R
 
-VcfR: tools to read, write, parse and visualize [vcf](https://github.com/samtools/hts-specs) data.
 
 [![Travis-CI Build Status](https://travis-ci.org/knausb/vcfR.png?branch=master)](https://travis-ci.org/knausb/vcfR)
 [![Coverage Status](https://coveralls.io/repos/github/knausb/vcfR/badge.svg?branch=master)](https://coveralls.io/github/knausb/vcfR?branch=master)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/vcfR)](https://cran.r-project.org/package=vcfR)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/vcfR)](https://cran.r-project.org/package=vcfR)
 
 
-vcfR is an R package intended to allow easy manipulation and visualization of variant call format (vcf) data.
-Functions are provided to rapidly read from and write to vcf files.
-Once data are read into memory they can be stored in either of two data structures.
+VcfR is an R package intended to allow easy manipulation and visualization of variant call format (VCF) data.
+Functions are provided to rapidly read from and write to VCF files.
+Once VCF data is read into R a parser function extracts matrices from the VCF data for use with typical R functions.
+This information can then be used for quality control or other purposes.
+Additional functions provide visualization of genomic data.
+Once processing is complete data may be written to a VCF file or converted into other popular R objects (e.g., genlight, DNAbin).
+VcfR provides a link between VCF data and the R environment connecting familiar software with genomic data.
 
-*vcfR* - S4 class to contain a vcf file as well as functions to load this object.
 
-*chromR* - S4 class to contain variant information (vcf) as well as sequence (fasta) and annotation (gff) information.
+VcfR is built upon two data structures.
 
-Additional functions provide tha ability to subset vcf data as well as to extract and parse subsets of the data.
-For example, individual genotypes, sequence depths or genotype likelihoods (when provided in the file) can easily be accessed.
-These tools are provided to aid researchers in rapidly surveying the quality and other characteristics of data provided as vcf data.
+**vcfR** - S4 class to contain data from a VCF file.
+
+**chromR** - S4 class to contain variant information (VCF) and optional sequence (FASTA) and annotation (GFF) information.
+
+
+Functions in vcfR provide the ability to subset VCF data as well as to extract and parse the data.
+For example, individual genotypes, sequence depths or genotype likelihoods (when provided in the VCF file) can easily be accessed.
+These tools are provided to aid researchers in rapidly surveying the quality and other characteristics of data provided as VCF data.
 With this information in hand, researchers should be able to determine criteria for hard filtering in order to attempt to maximize biological variation and minimize technical variation.
 
 
+## Publication
+
+
+Knaus, Brian J., and Niklaus J. Grunwald. 2016. VcfR: an R package to manipulate and visualize VCF format data. bioRxiv: 041277. http://dx.doi.org/10.1101/041277.
+
+
+Accepted pending minor revisions:
+
+Knaus, Brian J., and Niklaus J. Grunwald. 201X. VcfR: a package to manipulate and visualize VCF data in R. Molecular Ecology Resources.
 
 
 ## Download
@@ -63,5 +81,33 @@ And to build the vignettes:
 
 ------
 
+## Software that produce VCF files
+
+
+A fun part of this project has been learning about how people use vcfR.
+One facet of this is learning about the software that create VCF files.
+So I've decided to make a list of these software.
+If you know of a software that I have not included on this list, particularly if you can report that vcfR works with its files, feel free to let me know!
+
+
+**Genomic variant callers:**
+
+* [GATK haplotype caller](https://www.broadinstitute.org/gatk/guide/tooldocs/org_broadinstitute_gatk_tools_walkers_haplotypecaller_HaplotypeCaller.php)
+* [freebayes](https://github.com/ekg/freebayes)
+* [Samtools](http://www.htslib.org/)
+* [LoFreq](http://csb5.github.io/lofreq/)
+* [Cortex](http://cortexassembler.sourceforge.net/)
+* [VarScan2](http://dkoboldt.github.io/varscan/)
+
+
+
+**Restriction site associated DNA markers (e.g., RADseq, GBS):**
+
+* [Tassel](http://www.maizegenetics.net/#!tassel/c17q9)
+* [Stacks](http://catchenlab.life.illinois.edu/stacks/)
+
+
+
+------
 
 Enjoy!
