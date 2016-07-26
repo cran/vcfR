@@ -108,6 +108,21 @@ x
 ```
 
 
+## Creating snpclone objects
+
+The **genlight** object is extended by the **snpclone** object for analysis of clonal and partially clonal populations in **poppr**.
+The genlight object can be converted to a snpclone object with functions in the poppr package.
+
+
+```{r snpclone}
+library(poppr)
+x <- as.snpclone(x)
+x
+```
+
+
+Note that we now have a **mlg** slot to hold multilocus genotype indicators.
+
 
 
 ## Creating DNAbin objects

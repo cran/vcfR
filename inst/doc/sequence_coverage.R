@@ -56,3 +56,8 @@ boxplot(dp, las=3, col=c("#C0C0C0", "#808080"), ylab="Depth")
 abline(h=seq(0,200, by=20), col="#C0C0C088")
 par(mar=c(5,4,4,2))
 
+## ------------------------------------------------------------------------
+vcf
+is.na( vcf@gt[,-1][ is.na(dp) ] ) <- TRUE
+vcf
+

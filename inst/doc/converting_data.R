@@ -22,6 +22,11 @@ vcf <- read.vcfR(vcf_file, verbose = FALSE)
 x <- vcfR2genlight(vcf)
 x
 
+## ----snpclone------------------------------------------------------------
+library(poppr)
+x <- as.snpclone(x)
+x
+
 ## ----load vcf dna gff----------------------------------------------------
 # Find the files.
 vcf_file <- system.file("extdata", "pinf_sc50.vcf.gz", package = "pinfsc50")
