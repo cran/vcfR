@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -12,7 +12,7 @@
 
 <meta name="author" content="Brian Knaus" />
 
-<meta name="date" content="2017-01-06" />
+<meta name="date" content="2017-05-17" />
 
 <title>Visualizing VCF data 1</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Visualizing VCF data 1</h1>
 <h4 class="author"><em>Brian Knaus</em></h4>
-<h4 class="date"><em>2017-01-06</em></h4>
+<h4 class="date"><em>2017-05-17</em></h4>
 
 
 
@@ -109,17 +109,17 @@ chrom &lt;-<span class="st"> </span><span class="kw">create.chromR</span>(<span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">chrom &lt;-<span class="st"> </span><span class="kw">masker</span>(chrom, <span class="dt">min_QUAL=</span><span class="dv">0</span>, <span class="dt">min_DP=</span><span class="dv">350</span>, <span class="dt">max_DP=</span><span class="dv">650</span>, <span class="dt">min_MQ=</span><span class="fl">59.5</span>, <span class="dt">max_MQ=</span><span class="fl">60.5</span>)
 chrom &lt;-<span class="st"> </span><span class="kw">proc.chromR</span>(chrom, <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## Nucleotide regions complete.</code></pre>
-<pre><code>##   elapsed time:  0.299</code></pre>
+<pre><code>##   elapsed time:  0.251</code></pre>
 <pre><code>## N regions complete.</code></pre>
-<pre><code>##   elapsed time:  0.28</code></pre>
+<pre><code>##   elapsed time:  0.234</code></pre>
 <pre><code>## Population summary complete.</code></pre>
-<pre><code>##   elapsed time:  0.188</code></pre>
+<pre><code>##   elapsed time:  0.18</code></pre>
 <pre><code>## window_init complete.</code></pre>
-<pre><code>##   elapsed time:  0.001</code></pre>
+<pre><code>##   elapsed time:  0</code></pre>
 <pre><code>## windowize_fasta complete.</code></pre>
-<pre><code>##   elapsed time:  0.162</code></pre>
+<pre><code>##   elapsed time:  0.146</code></pre>
 <pre><code>## windowize_annotations complete.</code></pre>
-<pre><code>##   elapsed time:  0.012</code></pre>
+<pre><code>##   elapsed time:  0.011</code></pre>
 <pre><code>## windowize_variants complete.</code></pre>
 <pre><code>##   elapsed time:  0.001</code></pre>
 <p>The function create.chromR() reports the name of the chromosome (supercontig, contig, etc.) so that we can verify that all three data sources contain the same chromosome. We receive a warning because the names are not identical. Upon visual examination we determine that the names are synonyms and we can proceed.</p>
@@ -222,7 +222,7 @@ chrom &lt;-<span class="st"> </span><span class="kw">proc.chromR</span>(chrom, <
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -12,7 +12,7 @@
 
 <meta name="author" content="Brian J. Knaus" />
 
-<meta name="date" content="2017-01-06" />
+<meta name="date" content="2017-05-17" />
 
 <title>Sequence coverage</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Sequence coverage</h1>
 <h4 class="author"><em>Brian J. Knaus</em></h4>
-<h4 class="date"><em>2017-01-06</em></h4>
+<h4 class="date"><em>2017-05-17</em></h4>
 
 
 
@@ -85,6 +85,7 @@ vcf &lt;-<span class="st"> </span><span class="kw">read.vcfR</span>(vcf_file, <s
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf</code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
 ## 18 samples
+## 1 CHROMs
 ## 22,031 variants
 ## Object size: 20.9 Mb
 ## 7.929 percent missing data
@@ -216,6 +217,7 @@ dp[dp &lt;<span class="st"> </span><span class="dv">4</span>] &lt;-<span class="
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vcf</code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
 ## 18 samples
+## 1 CHROMs
 ## 22,031 variants
 ## Object size: 20.9 Mb
 ## 7.929 percent missing data
@@ -224,6 +226,7 @@ dp[dp &lt;<span class="st"> </span><span class="dv">4</span>] &lt;-<span class="
 vcf</code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
 ## 18 samples
+## 1 CHROMs
 ## 22,031 variants
 ## Object size: 19.9 Mb
 ## 21.06 percent missing data
@@ -238,7 +241,7 @@ vcf</code></pre></div>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
