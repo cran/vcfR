@@ -12,7 +12,7 @@
 
 <meta name="author" content="Brian J. Knaus" />
 
-<meta name="date" content="2017-05-17" />
+<meta name="date" content="2017-12-07" />
 
 <title>Introduction to vcfR</title>
 
@@ -70,11 +70,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Introduction to vcfR</h1>
 <h4 class="author"><em>Brian J. Knaus</em></h4>
-<h4 class="date"><em>2017-05-17</em></h4>
+<h4 class="date"><em>2017-12-07</em></h4>
 
 
 
 <p>vcfR is a package intended to help visualize, manipulate and quality filter data in VCF files.</p>
+<blockquote>
+<p>More documentation for vcfR can be found at the <a href="https://knausb.github.io/vcfR_documentation/">vcfR documentation</a> website.</p>
+</blockquote>
 <div id="preliminaries" class="section level2">
 <h2>Preliminaries</h2>
 <p>Input files frequently present challenges to analysis. A common problem I encounter is that chromosome names are not standardized among VCF, FASTA and GFF files. This presents work for the analyst. I suggest reading these files into R, syncronizing the names in R and then proceeding with downstream analyses. The other option I see is to create a set of files where the data is identical to the initial files, but the names have been syncronized. This later choice results in the creation of files which are largely redundant, something I feel is unnecessary.</p>
@@ -92,7 +95,7 @@ gff_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span
 vcf &lt;-<span class="st"> </span><span class="kw">read.vcfR</span>( vcf_file, <span class="dt">verbose =</span> <span class="ot">FALSE</span> )</code></pre></div>
 <p>The function <code>read.vcfR()</code> takes the filename you specify and reads it into R where it is stored as a <strong>vcfR</strong> object. The <strong>vcfR</strong> object is an S4 class object with three slots containing the metadata, the fixed data and the genotype data. More information on VCF data can be found in the vignette ‘vcf data.’ This object provides a known organization for the data so that downstream functions can easily access it.</p>
 <p>Genomic reference sequence files are typically in FASTA format files. These can be read in using the package ape.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dna &lt;-<span class="st"> </span>ape::<span class="kw">read.dna</span>(dna_file, <span class="dt">format =</span> <span class="st">&quot;fasta&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dna &lt;-<span class="st"> </span>ape<span class="op">::</span><span class="kw">read.dna</span>(dna_file, <span class="dt">format =</span> <span class="st">&quot;fasta&quot;</span>)</code></pre></div>
 <p>Annotation files (we currently support <a href="https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md">GFF</a>), files which contain coordinates for annotations such as start and end points of genes, are tabular and can be read in with typical R functions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gff &lt;-<span class="st"> </span><span class="kw">read.table</span>(gff_file, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">quote=</span><span class="st">&quot;&quot;</span>)</code></pre></div>
 <p>In my experience, GFF files typically to not surround text with quotes. This can present a challenge to reading these files into R. Disabling quotes in the call to <code>read.table()</code> typically helps handle this.</p>
@@ -135,17 +138,17 @@ chrom &lt;-<span class="st"> </span><span class="kw">create.chromR</span>(<span 
 <p>The function <code>var.win()</code> performs windowing analyses on the data. Currently it summarizes variant count per window as well as G/C content per window.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">chrom &lt;-<span class="st"> </span><span class="kw">proc.chromR</span>(chrom, <span class="dt">verbose=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## Nucleotide regions complete.</code></pre>
-<pre><code>##   elapsed time:  0.278</code></pre>
+<pre><code>##   elapsed time:  0.477</code></pre>
 <pre><code>## N regions complete.</code></pre>
-<pre><code>##   elapsed time:  0.416</code></pre>
+<pre><code>##   elapsed time:  0.261</code></pre>
 <pre><code>## Population summary complete.</code></pre>
-<pre><code>##   elapsed time:  0.178</code></pre>
+<pre><code>##   elapsed time:  0.176</code></pre>
 <pre><code>## window_init complete.</code></pre>
 <pre><code>##   elapsed time:  0</code></pre>
 <pre><code>## windowize_fasta complete.</code></pre>
-<pre><code>##   elapsed time:  0.148</code></pre>
+<pre><code>##   elapsed time:  0.163</code></pre>
 <pre><code>## windowize_annotations complete.</code></pre>
-<pre><code>##   elapsed time:  0.011</code></pre>
+<pre><code>##   elapsed time:  0.012</code></pre>
 <pre><code>## windowize_variants complete.</code></pre>
 <pre><code>##   elapsed time:  0.001</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(chrom)</code></pre></div>
