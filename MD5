@@ -1,4 +1,4 @@
-72c2dcd7bfdb2c567f866a7f5103cdba *DESCRIPTION
+eb055808dcec273e36bfb0e79eaec06c *DESCRIPTION
 0547f0d2aff2720e03eed6130569e0f2 *NAMESPACE
 02ef35f16d3b44d5e6afda0c3b4bb796 *R/AllClass.R
 02efcb0f142adca1393567e6c18b2e93 *R/INFO2df.R
@@ -14,11 +14,11 @@ f689437c90192d995351d1cb5f04ad52 *R/create_chromR.R
 69444947880145d273c43779d3dabec3 *R/extract_gt.R
 3ba17395b87d6750aefe589085b13bac *R/fasta_output.R
 f0d9fa883539cfeedb17676a81ea5322 *R/freq_peak_plot.R
-2b0881cf8ae05822166a07e8fbc50210 *R/genetic_diff.R
+bd638b80b8c16257bf9d34c50ca1a152 *R/genetic_diff.R
 6d0c21f40cb515f54d3be634a5d65c88 *R/genotype_matrix_functions.R
 80a8cf2a8dd81a433f4faf645e9f6ae5 *R/get_methods.R
 f59e936f8e9951738f54dfcad0b09a9d *R/heatmap_bp.R
-0306ac7bffefeffd390e9481c1db802b *R/io_vcfR.R
+82504272c0d4f94787409e246abf6cd5 *R/io_vcfR.R
 0824fab67da08dc6976f31dbdd887403 *R/is_het.R
 c8c9c7f318a6838df588a557d82cca1c *R/maf.R
 e7850040eab2dd52fe1c613c769c795a *R/onUnload.R
@@ -40,7 +40,8 @@ ead870d89ff56f03885d237e3ef6fb35 *R/sandbox.R
 f821e70c3a03e2afbac6e517223d5750 *R/vcfR_conversion.R
 9ac5ff0c92c329b80a9fef26df321aa1 *R/vcfR_example.R
 4982b3b0dd78f1d15687815ccbceeb91 *R/vcfR_test.R
-8ab6d0b68291d1a1170482e6236df315 *R/vcfR_to_tidy_functions.R
+210d1fe8f636e4837142ca0fcb533af0 *R/vcfR_to_tidy_functions.R
+4c9031da355d154264eed2b31cce2f99 *R/vep.R
 ad92b4c5e3ceac02a6bc2fb7f37ac232 *R/windowing.R
 7e6e1148e4be0b841c536c986a2cf572 *R/zzz.R
 6614c003b666f228aa9fa762efd0bfaf *README.md
@@ -49,18 +50,19 @@ fcdd17a1c8b7adb4d72c32b41c780ed6 *cleanup
 3e1dc69efcc95f2c81204810e78b3697 *data/chromR_example.RData
 a59634d93a55f32fec23400329223c18 *data/vcfR_example.rdata
 f7ca2c9958e18863824a4ed43473f546 *data/vcfR_test.RData
+435fd1c595db439f9877940bc13c2804 *data/vep.RData
 ce884dda6a2864ddf829f5311c74e59e *inst/CITATION
 094758d1cf7ec25db93131e14046ff34 *inst/doc/converting_data.R
 f117bba51d89249c5b51094112bc6b94 *inst/doc/converting_data.Rmd
-6bdd29ac41aa4c5c17419cb99312b798 *inst/doc/converting_data.html
+d55df9080e7afb9e5c876c898f73fda7 *inst/doc/converting_data.html
 b42791a533fed9619f7c6d431c11b22e *inst/doc/intro_to_vcfR.R
 692ea16470b9576382b31b660c09f494 *inst/doc/intro_to_vcfR.Rmd
-c6b45dbd76f6d9ffedfeae02a8a7b7d0 *inst/doc/intro_to_vcfR.html
+f830c58db5e28c1c92d1c5aec014c7bc *inst/doc/intro_to_vcfR.html
 66c504244dbf3b28a2cdb6b8d2be20bc *inst/doc/vcf_data.R
 f1e8131533d69de3f0d6a25229d2db59 *inst/doc/vcf_data.Rmd
-9a61a661b20a069f387c7851dae565bd *inst/doc/vcf_data.html
+db0bb19d71d428ff2febc901bc0d3c79 *inst/doc/vcf_data.html
 f86063812657997c8c822a6a47e4bd14 *inst/doc/workflow.Rmd
-a81920041b548bfd2663f33936bceda9 *inst/doc/workflow.html
+06011d37fff109a4b6a8fd5d15e5dff6 *inst/doc/workflow.html
 fcc1164c01a01a95d8e6aa196da40a21 *man/AD_frequency.Rd
 0f213fd7566b6f83bfd5dde477362623 *man/INFO2df.Rd
 1dcce6bb3f261e55e6cb86b22fef536b *man/addID.Rd
@@ -80,7 +82,7 @@ efb7bcf486f775831f57ddb25b8b259a *man/genetic_diff.Rd
 f292d03c254ca3ab02d6391fbab5fa2f *man/genotype_matrix.Rd
 75818ed4646a97685845e0b11674cc7c *man/getFIX.Rd
 2fde94c61cf8ad5568dac6b660eb2c26 *man/heatmap_bp.Rd
-99b03bb34a745a656b4001c377f749b0 *man/io_vcfR.Rd
+11ff3b8d735d1da214cf592e686d45d0 *man/io_vcfR.Rd
 9eb5738bc4ab0f12fa541ed4f561a334 *man/is_het.Rd
 16f693e87f06ac7e2be456512776f398 *man/maf.Rd
 29126eac77775c95a66060e64ebf3974 *man/masplit.Rd
@@ -103,6 +105,7 @@ c9ecb1e21971d807ee97d964167c1b1e *man/vcfR_conversion.Rd
 252edd5f9d2f197b2eb2a5484a4e5970 *man/vcfR_example.Rd
 981977e587c4fb0325ef1b8623a49c17 *man/vcfR_test.Rd
 35a789def412aec2bd47f3a2aa297570 *man/vcfR_to_tidy_conversion.Rd
+9976646d5369e535d9541aef28e64016 *man/vep.Rd
 e0b257f17a494fb83c1bd62e528df4d2 *man/windowing.Rd
 1f9c915c0048efbf362ba138410762f6 *src/Makevars
 e4fff8efe7ec58b48c06d3019d0fdb71 *src/Makevars.win
@@ -128,7 +131,7 @@ fc49ea1ddd55f2f801b4e7445263631f *tests/testthat/test_010_vcfR.R
 034f613dfc4a99e5d74b19d5652d8ea0 *tests/testthat/test_011_vcfR_methods.R
 ad386ad75a6649f32d3d954eff0a14dc *tests/testthat/test_012_write_vcfR_cpp.R
 e7995fe5aa27cd7d3d864a2640ba76fa *tests/testthat/test_013_read_vcfR_cpp.R
-5402be1b6ff747b2e97ef904abba03ed *tests/testthat/test_014_read_vcfR.R
+0b2d420c40f2280d1541e2befa4aa3f4 *tests/testthat/test_014_read_vcfR.R
 82c6af840053868fa6e565265c7d750c *tests/testthat/test_015_write_vcfR.R
 f53d2c49bf3a8eb34bc6c530e9c7fa95 *tests/testthat/test_020_chromR.R
 76310a7ff3f02d15d5eb5c7698ec6bf7 *tests/testthat/test_INFO2df.R
@@ -140,7 +143,7 @@ e9bd788a7b559a1a66ca5ac6a7d32e15 *tests/testthat/test_addID.R
 93d6020e5d7781fe7f58f34b91c4f2ca *tests/testthat/test_drplot.R
 6286d3e472fe2f03a8e55fed933f9c89 *tests/testthat/test_extract_gt.R
 4b1c0df48be5a3eb1e265fad32432f31 *tests/testthat/test_freq_peak.R
-07055da3afc0ee6724d37a3e397d87e7 *tests/testthat/test_genetic_diff.R
+241a4d8234227b1d50745b8339a2df31 *tests/testthat/test_genetic_diff.R
 ce481a57c37aa18b07e1550e7cffca1e *tests/testthat/test_genotype_matrix_functions.R
 c8e8d195872537327d9b7298c2616ae5 *tests/testthat/test_get.R
 df1d0b631ba15cad96477515c7c368a6 *tests/testthat/test_heatmapbp.R
@@ -156,7 +159,7 @@ b275126339aab39b26a91c85e5b1e36a *tests/testthat/test_summary_tables.R
 45b236ae9e4d521b9123acfa0f3473b9 *tests/testthat/test_var_window.R
 f630212dbc031afc6ca9164de8e976f3 *tests/testthat/test_vcfR2DNAbin.R
 1a72c532bbd87d61eb807ab468431729 *tests/testthat/test_vcfR2migrate.R
-9036a5a9e3e278e45f285f383df92343 *tests/testthat/test_vcfRtidy.R
+76c815d47228f483e921d26938ce6f37 *tests/testthat/test_vcfRtidy.R
 bb3765daddb5f32127f3e5d818a4a19a *tools/pinfsc50.png
 f117bba51d89249c5b51094112bc6b94 *vignettes/converting_data.Rmd
 692ea16470b9576382b31b660c09f494 *vignettes/intro_to_vcfR.Rmd
