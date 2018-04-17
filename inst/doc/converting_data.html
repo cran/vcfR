@@ -12,7 +12,7 @@
 
 <meta name="author" content="Brian J. Knaus" />
 
-<meta name="date" content="2018-02-07" />
+<meta name="date" content="2018-04-17" />
 
 <title>Converting vcfR objects to other forms</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Converting vcfR objects to other forms</h1>
 <h4 class="author"><em>Brian J. Knaus</em></h4>
-<h4 class="date"><em>2018-02-07</em></h4>
+<h4 class="date"><em>2018-04-17</em></h4>
 
 
 
@@ -81,7 +81,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(vcfR)</code></pre></div>
 <pre><code>## 
 ##    *****       ***   vcfR   ***       *****
-##    This is vcfR 1.7.0 
+##    This is vcfR 1.8.0 
 ##      browseVignettes('vcfR') # Documentation
 ##      citation('vcfR') # Citation
 ##    *****       *****      *****       *****</code></pre>
@@ -154,7 +154,6 @@ x &lt;-<span class="st"> </span><span class="kw">vcfR2genlight</span>(vcf)</code
 <pre><code>## Warning in vcfR2genlight(vcf): Found 312 loci with more than two alleles.
 ## Objects of class genlight only support loci with two alleles.
 ## 312 loci will be omitted from the genlight object.</code></pre>
-<pre><code>## Loading required package: parallel</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x</code></pre></div>
 <pre><code>##  /// GENLIGHT OBJECT /////////
 ## 
@@ -178,7 +177,7 @@ x &lt;-<span class="st"> </span><span class="kw">vcfR2genlight</span>(vcf)</code
 <pre><code>## Loading required package: adegenet</code></pre>
 <pre><code>## Loading required package: ade4</code></pre>
 <pre><code>## 
-##    /// adegenet 2.0.1 is loaded ////////////
+##    /// adegenet 2.1.1 is loaded ////////////
 ## 
 ##    &gt; overview: '?adegenet'
 ##    &gt; tutorials/doc/questions: 'adegenetWeb()' 
@@ -264,7 +263,7 @@ ape<span class="op">::</span><span class="kw">image.DNAbin</span>(my_dnabin1[,ap
 <p>Also see:</p>
 <ul>
 <li>Heng Li’s <a href="https://github.com/lh3/seqtk">seqtk</a></li>
-<li><a href="https://www.broadinstitute.org/gatk/">GATK’s</a> FastaAlternateReferenceMaker</li>
+<li><a href="https://software.broadinstitute.org/gatk/">GATK’s</a> FastaAlternateReferenceMaker</li>
 </ul>
 </div>
 <div id="creating-loci-objects" class="section level2">

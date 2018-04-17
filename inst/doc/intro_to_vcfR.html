@@ -12,7 +12,7 @@
 
 <meta name="author" content="Brian J. Knaus" />
 
-<meta name="date" content="2018-02-07" />
+<meta name="date" content="2018-04-17" />
 
 <title>Introduction to vcfR</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Introduction to vcfR</h1>
 <h4 class="author"><em>Brian J. Knaus</em></h4>
-<h4 class="date"><em>2018-02-07</em></h4>
+<h4 class="date"><em>2018-04-17</em></h4>
 
 
 
@@ -138,17 +138,17 @@ chrom &lt;-<span class="st"> </span><span class="kw">create.chromR</span>(<span 
 <p>The function <code>var.win()</code> performs windowing analyses on the data. Currently it summarizes variant count per window as well as G/C content per window.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">chrom &lt;-<span class="st"> </span><span class="kw">proc.chromR</span>(chrom, <span class="dt">verbose=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## Nucleotide regions complete.</code></pre>
-<pre><code>##   elapsed time:  0.28</code></pre>
+<pre><code>##   elapsed time:  0.268</code></pre>
 <pre><code>## N regions complete.</code></pre>
-<pre><code>##   elapsed time:  0.262</code></pre>
+<pre><code>##   elapsed time:  0.254</code></pre>
 <pre><code>## Population summary complete.</code></pre>
-<pre><code>##   elapsed time:  0.175</code></pre>
+<pre><code>##   elapsed time:  0.181</code></pre>
 <pre><code>## window_init complete.</code></pre>
-<pre><code>##   elapsed time:  0.001</code></pre>
+<pre><code>##   elapsed time:  0</code></pre>
 <pre><code>## windowize_fasta complete.</code></pre>
-<pre><code>##   elapsed time:  0.162</code></pre>
+<pre><code>##   elapsed time:  0.161</code></pre>
 <pre><code>## windowize_annotations complete.</code></pre>
-<pre><code>##   elapsed time:  0.013</code></pre>
+<pre><code>##   elapsed time:  0.012</code></pre>
 <pre><code>## windowize_variants complete.</code></pre>
 <pre><code>##   elapsed time:  0.001</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(chrom)</code></pre></div>
