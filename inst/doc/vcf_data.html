@@ -8,11 +8,11 @@
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Brian J. Knaus" />
 
-<meta name="date" content="2020-01-08" />
+<meta name="date" content="2020-02-05" />
 
 <title>VCF data</title>
 
@@ -117,9 +117,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -288,7 +285,8 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
@@ -303,7 +301,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">VCF data</h1>
 <h4 class="author">Brian J. Knaus</h4>
-<h4 class="date">2020-01-08</h4>
+<h4 class="date">2020-02-05</h4>
 
 
 
@@ -335,16 +333,15 @@ Cartoon representation of VCF file organization
 <h2>The meta region</h2>
 <p>The meta region contains information about the file, its creation, as well as information to interpret abbreviations used elsewhere in the file. Each line of the meta region begins with a double pound sign (‘##’). The example which comes with vcfR is shown below. (Only the first 10 lines are shown for brevity.)</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">strwrap</span>(vcf<span class="op">@</span>meta[<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>])</a></code></pre></div>
-<pre><code>##  [1] &quot;##fileformat=VCFv4.1&quot;                                              
-##  [2] &quot;##source=\&quot;GATK haplotype Caller, phased with beagle4\&quot;&quot;           
-##  [3] &quot;##FILTER=&lt;ID=LowQual,Description=\&quot;Low quality\&quot;&gt;&quot;                 
-##  [4] &quot;##FORMAT=&lt;ID=AD,Number=.,Type=Integer,Description=\&quot;Allelic depths&quot;
-##  [5] &quot;for the ref and alt alleles in the order listed\&quot;&gt;&quot;                
-##  [6] &quot;##FORMAT=&lt;ID=DP,Number=1,Type=Integer,Description=\&quot;Approximate&quot;   
-##  [7] &quot;read depth (reads with MQ=255 or with bad mates are filtered)\&quot;&gt;&quot;  
-##  [8] &quot;##FORMAT=&lt;ID=GQ,Number=1,Type=Integer,Description=\&quot;Genotype&quot;      
-##  [9] &quot;Quality\&quot;&gt;&quot;                                                        
-## [10] &quot;##FORMAT=&lt;ID=GT,Number=1,Type=String,Description=\&quot;Genotype\&quot;&gt;&quot;</code></pre>
+<pre><code>## [1] &quot;##fileformat=VCFv4.1&quot;                                                   
+## [2] &quot;##source=\&quot;GATK haplotype Caller, phased with beagle4\&quot;&quot;                
+## [3] &quot;##FILTER=&lt;ID=LowQual,Description=\&quot;Low quality\&quot;&gt;&quot;                      
+## [4] &quot;##FORMAT=&lt;ID=AD,Number=.,Type=Integer,Description=\&quot;Allelic depths for&quot; 
+## [5] &quot;the ref and alt alleles in the order listed\&quot;&gt;&quot;                         
+## [6] &quot;##FORMAT=&lt;ID=DP,Number=1,Type=Integer,Description=\&quot;Approximate read&quot;   
+## [7] &quot;depth (reads with MQ=255 or with bad mates are filtered)\&quot;&gt;&quot;            
+## [8] &quot;##FORMAT=&lt;ID=GQ,Number=1,Type=Integer,Description=\&quot;Genotype Quality\&quot;&gt;&quot;
+## [9] &quot;##FORMAT=&lt;ID=GT,Number=1,Type=String,Description=\&quot;Genotype\&quot;&gt;&quot;</code></pre>
 <p>The first line contains the version of the VCF format used in the file. This line is required. The second line specifies the software which created the VCF file. This is not required, so not all VCF files include it. When they do, the file becomes self documenting. Note that the alignment software is not included here because it was used upstream of the VCF file’s creation (aligners typically create *.SAM or *.BAM format files). Because the file can only include information about the software that created it, the entire pipeline does not get documented. Some VCF files may contain a line for every chromosome (or supercontig or contig depending on your genome), so they may become rather long. Here, the remaining lines contain INFO and FORMAT specifications which define abbreviations used in the fix and gt portions of the file.</p>
 <p>The meta region may include long lines that may not be easy to view. In vcfR we’ve created a function to help prcess this data.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">queryMETA</span>(vcf)</a></code></pre></div>
@@ -413,20 +410,20 @@ Cartoon representation of VCF file organization
 <h2>The gt region</h2>
 <p>The gt (genotype) region contains information about each variant for each sample. The values for each variant and each sample are colon delimited. Multiple types of data for each genotype may be stored in this manner. The format of the data is specified by the FORMAT column (column nine). Here we see that we have information for GT, AD, DP, GQ and PL. The definition of these acronyms can be referenced by querying the the meta region, as demonstrated previously. Every variant does not necessarily have the same information (e.g., SNPs and indels may be handled differently), so the rows are best treated independently. Different variant callers may include different information in this region.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">vcf<span class="op">@</span>gt[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</a></code></pre></div>
-<pre><code>##      FORMAT           BL2009P4_us23              
-## [1,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:62,0:62:99:0,190,2835&quot;
-## [2,] &quot;GT:AD:DP:GQ:PL&quot; &quot;1|0:5,5:10:99:111,0,114&quot;  
-## [3,] &quot;GT:AD:DP:GQ:PL&quot; NA                         
-## [4,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:1,0:1:3:0,3,44&quot;       
-## [5,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:2,0:2:6:0,6,49&quot;       
-## [6,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:2,0:2:6:0,6,49&quot;       
-##      DDR7602                   IN2009T1_us22              
-## [1,] &quot;0|0:12,0:12:39:0,39,585&quot; &quot;0|0:37,0:37:99:0,114,1709&quot;
-## [2,] NA                        &quot;0|1:2,1:3:16:16,0,48&quot;     
-## [3,] NA                        &quot;0|0:2,0:2:6:0,6,51&quot;       
-## [4,] NA                        &quot;1|1:0,1:1:3:25,3,0&quot;       
-## [5,] &quot;0|0:1,0:1:3:0,3,34&quot;      &quot;0|0:1,0:1:3:0,3,31&quot;       
-## [6,] &quot;0|0:1,0:1:3:0,3,34&quot;      &quot;0|0:3,0:3:9:0,9,85&quot;</code></pre>
+<pre><code>##      FORMAT           BL2009P4_us23               DDR7602                  
+## [1,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:62,0:62:99:0,190,2835&quot; &quot;0|0:12,0:12:39:0,39,585&quot;
+## [2,] &quot;GT:AD:DP:GQ:PL&quot; &quot;1|0:5,5:10:99:111,0,114&quot;   NA                       
+## [3,] &quot;GT:AD:DP:GQ:PL&quot; NA                          NA                       
+## [4,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:1,0:1:3:0,3,44&quot;        NA                       
+## [5,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:2,0:2:6:0,6,49&quot;        &quot;0|0:1,0:1:3:0,3,34&quot;     
+## [6,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:2,0:2:6:0,6,49&quot;        &quot;0|0:1,0:1:3:0,3,34&quot;     
+##      IN2009T1_us22              
+## [1,] &quot;0|0:37,0:37:99:0,114,1709&quot;
+## [2,] &quot;0|1:2,1:3:16:16,0,48&quot;     
+## [3,] &quot;0|0:2,0:2:6:0,6,51&quot;       
+## [4,] &quot;1|1:0,1:1:3:25,3,0&quot;       
+## [5,] &quot;0|0:1,0:1:3:0,3,31&quot;       
+## [6,] &quot;0|0:3,0:3:9:0,9,85&quot;</code></pre>
 </div>
 <div id="vcfr" class="section level2">
 <h2>vcfR</h2>
@@ -452,27 +449,20 @@ Cartoon representation of VCF file organization
 ## [6,] &quot;Supercontig_1.50&quot; &quot;780&quot; NA &quot;G&quot; &quot;T&quot; &quot;58.38&quot;  NA    
 ## [1] 
 ## [1] &quot;***** Genotype section *****&quot;
-##      FORMAT           BL2009P4_us23              
-## [1,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:62,0:62:99:0,190,2835&quot;
-## [2,] &quot;GT:AD:DP:GQ:PL&quot; &quot;1|0:5,5:10:99:111,0,114&quot;  
-## [3,] &quot;GT:AD:DP:GQ:PL&quot; NA                         
-## [4,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:1,0:1:3:0,3,44&quot;       
-## [5,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:2,0:2:6:0,6,49&quot;       
-## [6,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:2,0:2:6:0,6,49&quot;       
-##      DDR7602                   IN2009T1_us22              
-## [1,] &quot;0|0:12,0:12:39:0,39,585&quot; &quot;0|0:37,0:37:99:0,114,1709&quot;
-## [2,] NA                        &quot;0|1:2,1:3:16:16,0,48&quot;     
-## [3,] NA                        &quot;0|0:2,0:2:6:0,6,51&quot;       
-## [4,] NA                        &quot;1|1:0,1:1:3:25,3,0&quot;       
-## [5,] &quot;0|0:1,0:1:3:0,3,34&quot;      &quot;0|0:1,0:1:3:0,3,31&quot;       
-## [6,] &quot;0|0:1,0:1:3:0,3,34&quot;      &quot;0|0:3,0:3:9:0,9,85&quot;       
-##      LBUS5                     NL07434             
-## [1,] &quot;0|0:12,0:12:39:0,39,585&quot; NA                  
-## [2,] NA                        NA                  
-## [3,] NA                        NA                  
-## [4,] NA                        &quot;0|0:1,0:1:3:0,3,28&quot;
-## [5,] &quot;0|0:1,0:1:3:0,3,34&quot;      &quot;0|0:1,0:1:3:0,3,26&quot;
-## [6,] &quot;0|0:1,0:1:3:0,3,34&quot;      NA                  
+##      FORMAT           BL2009P4_us23               DDR7602                  
+## [1,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:62,0:62:99:0,190,2835&quot; &quot;0|0:12,0:12:39:0,39,585&quot;
+## [2,] &quot;GT:AD:DP:GQ:PL&quot; &quot;1|0:5,5:10:99:111,0,114&quot;   NA                       
+## [3,] &quot;GT:AD:DP:GQ:PL&quot; NA                          NA                       
+## [4,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:1,0:1:3:0,3,44&quot;        NA                       
+## [5,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:2,0:2:6:0,6,49&quot;        &quot;0|0:1,0:1:3:0,3,34&quot;     
+## [6,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:2,0:2:6:0,6,49&quot;        &quot;0|0:1,0:1:3:0,3,34&quot;     
+##      IN2009T1_us22               LBUS5                     NL07434             
+## [1,] &quot;0|0:37,0:37:99:0,114,1709&quot; &quot;0|0:12,0:12:39:0,39,585&quot; NA                  
+## [2,] &quot;0|1:2,1:3:16:16,0,48&quot;      NA                        NA                  
+## [3,] &quot;0|0:2,0:2:6:0,6,51&quot;        NA                        NA                  
+## [4,] &quot;1|1:0,1:1:3:25,3,0&quot;        NA                        &quot;0|0:1,0:1:3:0,3,28&quot;
+## [5,] &quot;0|0:1,0:1:3:0,3,31&quot;        &quot;0|0:1,0:1:3:0,3,34&quot;      &quot;0|0:1,0:1:3:0,3,26&quot;
+## [6,] &quot;0|0:3,0:3:9:0,9,85&quot;        &quot;0|0:1,0:1:3:0,3,34&quot;      NA                  
 ## [1] &quot;First 6 columns only.&quot;
 ## [1] 
 ## [1] &quot;Unique GT formats:&quot;
