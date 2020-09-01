@@ -12,7 +12,7 @@
 
 <meta name="author" content="Brian J. Knaus" />
 
-<meta name="date" content="2020-06-03" />
+<meta name="date" content="2020-08-30" />
 
 <title>Introduction to vcfR</title>
 
@@ -301,7 +301,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Introduction to vcfR</h1>
 <h4 class="author">Brian J. Knaus</h4>
-<h4 class="date">2020-06-03</h4>
+<h4 class="date">2020-08-30</h4>
 
 
 
@@ -316,7 +316,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </div>
 <div id="data-input" class="section level2">
 <h2>Data input</h2>
-<p>The vcfR package is designed to work with data from <a href="http://www.1000genomes.org/node/101">VCF</a> files. The use of a sequence file (<a href="https://en.wikipedia.org/wiki/FASTA_format">FASTA format</a>) and an annotation file (<a href="https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md">GFF format</a>) can provide helpful context, but are not required. We’ll begin our example by locating the data files from the package ‘pinfsc50.’</p>
+<p>The vcfR package is designed to work with data from <a href="https://www.internationalgenome.org/node/101">VCF</a> files. The use of a sequence file (<a href="https://en.wikipedia.org/wiki/FASTA_format">FASTA format</a>) and an annotation file (<a href="https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md">GFF format</a>) can provide helpful context, but are not required. We’ll begin our example by locating the data files from the package ‘pinfsc50.’</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">pkg &lt;-<span class="st"> &quot;pinfsc50&quot;</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">vcf_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;pinf_sc50.vcf.gz&quot;</span>, <span class="dt">package =</span> pkg)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">dna_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;pinf_sc50.fasta&quot;</span>, <span class="dt">package =</span> pkg)</a>
@@ -369,17 +369,17 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>The function <code>var.win()</code> performs windowing analyses on the data. Currently it summarizes variant count per window as well as G/C content per window.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">chrom &lt;-<span class="st"> </span><span class="kw">proc.chromR</span>(chrom, <span class="dt">verbose=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## Nucleotide regions complete.</code></pre>
-<pre><code>##   elapsed time:  0.314</code></pre>
+<pre><code>##   elapsed time:  0.31</code></pre>
 <pre><code>## N regions complete.</code></pre>
-<pre><code>##   elapsed time:  0.299</code></pre>
+<pre><code>##   elapsed time:  0.293</code></pre>
 <pre><code>## Population summary complete.</code></pre>
-<pre><code>##   elapsed time:  0.171</code></pre>
+<pre><code>##   elapsed time:  0.173</code></pre>
 <pre><code>## window_init complete.</code></pre>
 <pre><code>##   elapsed time:  0.001</code></pre>
 <pre><code>## windowize_fasta complete.</code></pre>
-<pre><code>##   elapsed time:  0.177</code></pre>
+<pre><code>##   elapsed time:  0.165</code></pre>
 <pre><code>## windowize_annotations complete.</code></pre>
-<pre><code>##   elapsed time:  0.015</code></pre>
+<pre><code>##   elapsed time:  0.012</code></pre>
 <pre><code>## windowize_variants complete.</code></pre>
 <pre><code>##   elapsed time:  0.001</code></pre>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">plot</span>(chrom)</a></code></pre></div>
