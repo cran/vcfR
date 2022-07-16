@@ -7,17 +7,16 @@ On CRAN:
 [![](http://cranlogs.r-pkg.org/badges/grand-total/vcfR)](https://cran.r-project.org/package=vcfR)
 [![](http://cranlogs.r-pkg.org/badges/vcfR)](https://cran.r-project.org/package=vcfR)
 
-Depsy:
-[![Research software impact](http://depsy.org/api/package/cran/vcfR/badge.svg)](http://depsy.org/package/r/vcfR)
-
-Travis-CI (Ubuntu Linux):
-[![Travis-CI Build Status](https://travis-ci.org/knausb/vcfR.png?branch=master)](https://travis-ci.org/knausb/vcfR)
-
 Appveyor (Windows):
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/knausb/vcfR?branch=master&svg=true)](https://ci.appveyor.com/project/knausb/vcfR)
 
 Coveralls:
 [![Coverage Status](https://coveralls.io/repos/github/knausb/vcfR/badge.svg?branch=master)](https://coveralls.io/github/knausb/vcfR?branch=master)
+
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/knausb/vcfR/workflows/R-CMD-check/badge.svg)](https://github.com/knausb/vcfR/actions)
+<!-- badges: end -->
+
 
 *****
 
@@ -51,7 +50,7 @@ With this information in hand, researchers should be able to determine criteria 
 
 Documentation for vcfR can now be found here: [vcfR_documentation](https://knausb.github.io/vcfR_documentation/).
 
-We also have [Population genetics and genomics in R](http://grunwaldlab.github.io/Population_Genetics_in_R/index.html) which is more general and provides examples of analyses.
+We also have [Population genetics and genomics in R](https://grunwaldlab.github.io/Population_Genetics_in_R/index.html) which is more general and provides examples of analyses.
 
 If you think you've found a bug, please see [reporting an issue](https://knausb.github.io/vcfR_documentation/reporting_issue.html).
 
@@ -128,7 +127,7 @@ If you know of a software that I have not included on this list, particularly if
 **Genomic variant callers:**
 
 * [Cortex](http://cortexassembler.sourceforge.net/)
-* [freebayes](https://github.com/ekg/freebayes)
+* [freebayes](https://github.com/freebayes/freebayes)
 * [GATK haplotype caller](https://software.broadinstitute.org/gatk/guide/tooldocs/org_broadinstitute_gatk_tools_walkers_haplotypecaller_HaplotypeCaller.php)
 * [GATK MuTect2](https://software.broadinstitute.org/gatk/guide/tooldocs/org_broadinstitute_gatk_tools_walkers_cancer_m2_MuTect2.php)
 * [GATK GenotypeGVCFs](https://software.broadinstitute.org/gatk/guide/tooldocs/org_broadinstitute_gatk_tools_walkers_variantutils_GenotypeGVCFs.php)

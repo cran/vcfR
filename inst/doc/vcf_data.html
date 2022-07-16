@@ -12,34 +12,81 @@
 
 <meta name="author" content="Brian J. Knaus" />
 
-<meta name="date" content="2020-08-30" />
+<meta name="date" content="2022-07-14" />
 
 <title>VCF data</title>
 
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -48,9 +95,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -104,6 +151,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
+
 
 
 
@@ -301,7 +349,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">VCF data</h1>
 <h4 class="author">Brian J. Knaus</h4>
-<h4 class="date">2020-08-30</h4>
+<h4 class="date">2022-07-14</h4>
 
 
 
@@ -310,16 +358,16 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h2>Three sections</h2>
 <p>A VCF file can be thought of as having three sections: a <strong>meta region</strong>, a <strong>fix region</strong> and a <strong>gt region</strong>. The meta region is at the top of the file. The information in the meta region defines the abbreviations used elsewhere in the file. It may also document software used to create the file as well as parameters used by this software. Below the meta region, the data are tabular. The first eight columns of this table contain information about each variant. This data may be common over all variants, such as its chromosomal position, or a summary over all samples, such as quality metrics. These data are fixed, or the same, over all samples. The fix region is required in a VCF file, subsequent columns are optional but are common in my experience. Beginning at column ten is a column for every sample. The values in these columns are information for each sample and each variant. The organization of each cell containing a genotype and associated information is specified in column nine. The location of these three regions within a file can be represented by the cartoon below.</p>
 <div class="figure" style="text-align: center">
-<img src="data:image/png;base64,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" alt="Cartoon representation of VCF file organization" />
+<img src="data:image/png;base64,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" alt="Cartoon representation of VCF file organization" />
 <p class="caption">
 Cartoon representation of VCF file organization
 </p>
 </div>
 <p>The VCF file specification is flexible. This means that there are slots for certain types of data, but any particular software which creates a VCF file does not necessarily use them all. Similarly, authors have the opportunity to include new forms of data, forms which may not have been foreseen by the authors of the VCF specification. The result is that all VCF files do not contain the same information.</p>
 <p>For this example, we’ll use example data provided with vcfR.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(vcfR)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">data</span>(vcfR_example)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">vcf</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">library</span>(vcfR)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="kw">data</span>(vcfR_example)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>vcf</span></code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
 ## 18 samples
 ## 1 CHROMs
@@ -332,7 +380,7 @@ Cartoon representation of VCF file organization
 <div id="the-meta-region" class="section level2">
 <h2>The meta region</h2>
 <p>The meta region contains information about the file, its creation, as well as information to interpret abbreviations used elsewhere in the file. Each line of the meta region begins with a double pound sign (‘##’). The example which comes with vcfR is shown below. (Only the first 10 lines are shown for brevity.)</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">strwrap</span>(vcf<span class="op">@</span>meta[<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">strwrap</span>(vcf<span class="op">@</span>meta[<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>])</span></code></pre></div>
 <pre><code>## [1] &quot;##fileformat=VCFv4.1&quot;                                                   
 ## [2] &quot;##source=\&quot;GATK haplotype Caller, phased with beagle4\&quot;&quot;                
 ## [3] &quot;##FILTER=&lt;ID=LowQual,Description=\&quot;Low quality\&quot;&gt;&quot;                      
@@ -344,7 +392,7 @@ Cartoon representation of VCF file organization
 ## [9] &quot;##FORMAT=&lt;ID=GT,Number=1,Type=String,Description=\&quot;Genotype\&quot;&gt;&quot;</code></pre>
 <p>The first line contains the version of the VCF format used in the file. This line is required. The second line specifies the software which created the VCF file. This is not required, so not all VCF files include it. When they do, the file becomes self documenting. Note that the alignment software is not included here because it was used upstream of the VCF file’s creation (aligners typically create *.SAM or *.BAM format files). Because the file can only include information about the software that created it, the entire pipeline does not get documented. Some VCF files may contain a line for every chromosome (or supercontig or contig depending on your genome), so they may become rather long. Here, the remaining lines contain INFO and FORMAT specifications which define abbreviations used in the fix and gt portions of the file.</p>
 <p>The meta region may include long lines that may not be easy to view. In vcfR we’ve created a function to help prcess this data.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">queryMETA</span>(vcf)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">queryMETA</span>(vcf)</span></code></pre></div>
 <pre><code>##  [1] &quot;FILTER=ID=LowQual&quot;                   
 ##  [2] &quot;FORMAT=ID=AD&quot;                        
 ##  [3] &quot;FORMAT=ID=DP&quot;                        
@@ -372,7 +420,7 @@ Cartoon representation of VCF file organization
 ## [25] &quot;INFO=ID=SOR&quot;                         
 ## [26] &quot;1 contig=&lt;IDs omitted from queryMETA&quot;</code></pre>
 <p>When the function <code>queryMETA()</code> is called with only a vcfR object as a parameter, it attempts to summarize the meta information. Not all of the information is returned. For example, ‘contig’ elements are not returned. This is an attempt to summarize information that may be most useful for comprehension of the file’s contents.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">'DP'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">&#39;DP&#39;</span>)</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;FORMAT=ID=DP&quot;                                                                         
 ## [2] &quot;Number=1&quot;                                                                             
@@ -385,7 +433,7 @@ Cartoon representation of VCF file organization
 ## [3] &quot;Type=Integer&quot;                                                         
 ## [4] &quot;Description=Approximate read depth; some reads may have been filtered&quot;</code></pre>
 <p>When an element parameter is included, only the information about that element is returned. In this example the element ‘DP’ is returned. We see that this acronym is defined as both a ‘FORMAT’ and ‘INFO’ acronym. We can narrow down our query by including more information in the element parameter.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">'FORMAT=&lt;ID=DP'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">queryMETA</span>(vcf, <span class="dt">element =</span> <span class="st">&#39;FORMAT=&lt;ID=DP&#39;</span>)</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;FORMAT=ID=DP&quot;                                                                         
 ## [2] &quot;Number=1&quot;                                                                             
@@ -396,7 +444,7 @@ Cartoon representation of VCF file organization
 <div id="the-fix-region" class="section level2">
 <h2>The fix region</h2>
 <p>The fix region contains information for each variant which is sometimes summarized over all samples. The first eight columns of the fixed region and are titled CHROM, POS, ID, REF, ALT, QUAL, FILTER and INFO. This is per variant information which is ‘fixed’, or the same, over all samples. The first two columns indicate the location of the variant by chromosome and position within that chromosome. Here, the ID field has not been used, so it consists of missing data (NA). The REF and ALT columns indicate the reference and alternate allelic states. When multiple alternate allelic states are present they are delimited with commas. The QUAL column attempts to summarize the quality of each variant over all samples. The FILTER field is not used here but could contain information on whether a variant has passed some form of quality assessment.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">head</span>(<span class="kw">getFIX</span>(vcf))</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="kw">head</span>(<span class="kw">getFIX</span>(vcf))</span></code></pre></div>
 <pre><code>##      CHROM              POS   ID REF ALT QUAL     FILTER
 ## [1,] &quot;Supercontig_1.50&quot; &quot;2&quot;   NA &quot;T&quot; &quot;A&quot; &quot;44.44&quot;  NA    
 ## [2,] &quot;Supercontig_1.50&quot; &quot;246&quot; NA &quot;C&quot; &quot;G&quot; &quot;144.21&quot; NA    
@@ -409,7 +457,7 @@ Cartoon representation of VCF file organization
 <div id="the-gt-region" class="section level2">
 <h2>The gt region</h2>
 <p>The gt (genotype) region contains information about each variant for each sample. The values for each variant and each sample are colon delimited. Multiple types of data for each genotype may be stored in this manner. The format of the data is specified by the FORMAT column (column nine). Here we see that we have information for GT, AD, DP, GQ and PL. The definition of these acronyms can be referenced by querying the the meta region, as demonstrated previously. Every variant does not necessarily have the same information (e.g., SNPs and indels may be handled differently), so the rows are best treated independently. Different variant callers may include different information in this region.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">vcf<span class="op">@</span>gt[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a>vcf<span class="op">@</span>gt[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]</span></code></pre></div>
 <pre><code>##      FORMAT           BL2009P4_us23               DDR7602                  
 ## [1,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:62,0:62:99:0,190,2835&quot; &quot;0|0:12,0:12:39:0,39,585&quot;
 ## [2,] &quot;GT:AD:DP:GQ:PL&quot; &quot;1|0:5,5:10:99:111,0,114&quot;   NA                       
@@ -428,8 +476,8 @@ Cartoon representation of VCF file organization
 <div id="vcfr" class="section level2">
 <h2>vcfR</h2>
 <p>Using the R package vcfR, we can read VCF format files into memory using the function <code>read.vcfR()</code>. Once in memory we can use the <code>head()</code> method to summarize the information in the three VCF regions.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">head</span>(vcf)</a></code></pre></div>
-<pre><code>## [1] &quot;***** Object of class 'vcfR' *****&quot;
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="kw">head</span>(vcf)</span></code></pre></div>
+<pre><code>## [1] &quot;***** Object of class &#39;vcfR&#39; *****&quot;
 ## [1] &quot;***** Meta section *****&quot;
 ## [1] &quot;##fileformat=VCFv4.1&quot;
 ## [1] &quot;##source=\&quot;GATK haplotype Caller, phased with beagle4\&quot;&quot;
