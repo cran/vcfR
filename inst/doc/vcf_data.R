@@ -1,4 +1,4 @@
-## ---- fig.cap="Cartoon representation of VCF file organization", echo=FALSE, fig.height=4, fig.width=4, fig.align='center'----
+## ----fig.cap="Cartoon representation of VCF file organization", echo=FALSE, fig.height=4, fig.width=4, fig.align='center'----
 par(mar=c(0.1,0.1,0.1,0.1))
 plot(c(0,5), c(0,5), type="n", frame.plot=FALSE, axes=FALSE, xlab="", ylab="")
 rect(xleft=0, ybottom=4, xright=3, ytop=5)
@@ -17,7 +17,7 @@ library(vcfR)
 data(vcfR_example)
 vcf
 
-## ---- echo=TRUE---------------------------------------------------------------
+## ----echo=TRUE----------------------------------------------------------------
 strwrap(vcf@meta[1:7])
 
 ## -----------------------------------------------------------------------------
@@ -29,10 +29,10 @@ queryMETA(vcf, element = 'DP')
 ## -----------------------------------------------------------------------------
 queryMETA(vcf, element = 'FORMAT=<ID=DP')
 
-## ---- echo=TRUE---------------------------------------------------------------
+## ----echo=TRUE----------------------------------------------------------------
 head(getFIX(vcf))
 
-## ---- echo=TRUE---------------------------------------------------------------
+## ----echo=TRUE----------------------------------------------------------------
 vcf@gt[1:6, 1:4]
 
 ## -----------------------------------------------------------------------------

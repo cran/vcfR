@@ -12,7 +12,7 @@
 
 <meta name="author" content="Brian J. Knaus" />
 
-<meta name="date" content="2023-02-10" />
+<meta name="date" content="2023-12-07" />
 
 <title>VCF data</title>
 
@@ -340,7 +340,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">VCF data</h1>
 <h4 class="author">Brian J. Knaus</h4>
-<h4 class="date">2023-02-10</h4>
+<h4 class="date">2023-12-07</h4>
 
 
 
@@ -382,9 +382,9 @@ have the opportunity to include new forms of data, forms which may not
 have been foreseen by the authors of the VCF specification. The result
 is that all VCF files do not contain the same information.</p>
 <p>For this example, we’ll use example data provided with vcfR.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcfR)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(vcfR_example)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>vcf</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(vcfR)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">data</span>(vcfR_example)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>vcf</span></code></pre></div>
 <pre><code>## ***** Object of Class vcfR *****
 ## 18 samples
 ## 1 CHROMs
@@ -407,7 +407,7 @@ well as information to interpret abbreviations used elsewhere in the
 file. Each line of the meta region begins with a double pound sign
 (‘##’). The example which comes with vcfR is shown below. (Only the
 first 10 lines are shown for brevity.)</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">strwrap</span>(vcf<span class="sc">@</span>meta[<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">strwrap</span>(vcf<span class="sc">@</span>meta[<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>])</span></code></pre></div>
 <pre><code>## [1] &quot;##fileformat=VCFv4.1&quot;                                                   
 ## [2] &quot;##source=\&quot;GATK haplotype Caller, phased with beagle4\&quot;&quot;                
 ## [3] &quot;##FILTER=&lt;ID=LowQual,Description=\&quot;Low quality\&quot;&gt;&quot;                      
@@ -431,7 +431,7 @@ Here, the remaining lines contain INFO and FORMAT specifications which
 define abbreviations used in the fix and gt portions of the file.</p>
 <p>The meta region may include long lines that may not be easy to view.
 In vcfR we’ve created a function to help prcess this data.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">queryMETA</span>(vcf)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">queryMETA</span>(vcf)</span></code></pre></div>
 <pre><code>##  [1] &quot;FILTER=ID=LowQual&quot;                   
 ##  [2] &quot;FORMAT=ID=AD&quot;                        
 ##  [3] &quot;FORMAT=ID=DP&quot;                        
@@ -463,7 +463,7 @@ object as a parameter, it attempts to summarize the meta information.
 Not all of the information is returned. For example, ‘contig’ elements
 are not returned. This is an attempt to summarize information that may
 be most useful for comprehension of the file’s contents.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">queryMETA</span>(vcf, <span class="at">element =</span> <span class="st">&#39;DP&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">queryMETA</span>(vcf, <span class="at">element =</span> <span class="st">&#39;DP&#39;</span>)</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;FORMAT=ID=DP&quot;                                                                         
 ## [2] &quot;Number=1&quot;                                                                             
@@ -480,7 +480,7 @@ that element is returned. In this example the element ‘DP’ is returned.
 We see that this acronym is defined as both a ‘FORMAT’ and ‘INFO’
 acronym. We can narrow down our query by including more information in
 the element parameter.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">queryMETA</span>(vcf, <span class="at">element =</span> <span class="st">&#39;FORMAT=&lt;ID=DP&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">queryMETA</span>(vcf, <span class="at">element =</span> <span class="st">&#39;FORMAT=&lt;ID=DP&#39;</span>)</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;FORMAT=ID=DP&quot;                                                                         
 ## [2] &quot;Number=1&quot;                                                                             
@@ -511,7 +511,7 @@ with commas. The QUAL column attempts to summarize the quality of each
 variant over all samples. The FILTER field is not used here but could
 contain information on whether a variant has passed some form of quality
 assessment.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">getFIX</span>(vcf))</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">getFIX</span>(vcf))</span></code></pre></div>
 <pre><code>##      CHROM              POS   ID REF ALT QUAL     FILTER
 ## [1,] &quot;Supercontig_1.50&quot; &quot;2&quot;   NA &quot;T&quot; &quot;A&quot; &quot;44.44&quot;  NA    
 ## [2,] &quot;Supercontig_1.50&quot; &quot;246&quot; NA &quot;C&quot; &quot;G&quot; &quot;144.21&quot; NA    
@@ -539,7 +539,7 @@ necessarily have the same information (e.g., SNPs and indels may be
 handled differently), so the rows are best treated independently.
 Different variant callers may include different information in this
 region.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>vcf<span class="sc">@</span>gt[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>vcf<span class="sc">@</span>gt[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div>
 <pre><code>##      FORMAT           BL2009P4_us23               DDR7602                  
 ## [1,] &quot;GT:AD:DP:GQ:PL&quot; &quot;0|0:62,0:62:99:0,190,2835&quot; &quot;0|0:12,0:12:39:0,39,585&quot;
 ## [2,] &quot;GT:AD:DP:GQ:PL&quot; &quot;1|0:5,5:10:99:111,0,114&quot;   NA                       
@@ -561,7 +561,7 @@ region.</p>
 using the function <code>read.vcfR()</code>. Once in memory we can use
 the <code>head()</code> method to summarize the information in the three
 VCF regions.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(vcf)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">head</span>(vcf)</span></code></pre></div>
 <pre><code>## [1] &quot;***** Object of class &#39;vcfR&#39; *****&quot;
 ## [1] &quot;***** Meta section *****&quot;
 ## [1] &quot;##fileformat=VCFv4.1&quot;

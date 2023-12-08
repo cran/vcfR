@@ -57,7 +57,7 @@ par(mar=c(5,8,4,2))
 ape::image.DNAbin(my_dnabin1[,ape::seg.sites(my_dnabin1)])
 par(mar=c(5,4,4,2))
 
-## ---- eval=FALSE--------------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  write.dna( my_dnabin1, file = 'my_gene.fasta', format = 'fasta' )
 #  unlink('my_gene.fasta') # Clean up after we're done with the example.
 
